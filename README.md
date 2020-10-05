@@ -1,44 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Navigapp
 
-## Available Scripts
+Esse projeto é um protótipo de Navegador Direcional (Spatial/Directional Navigator) pensado para criar aplicações que recebem somente entradas de teclado do usuário.
 
-In the project directory, you can run:
+## Como funciona?
 
-### `yarn start`
+A aplicação observa a ação de _KeyDown_ dos usuários e, a partir do código e do componente que está em foco, gerenciona o estado (a partir de um mapa de estados feito dentro da própria aplicação).  
+Alguns materiais interessantes que usei como base:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- (SmartTV Navigation with React)[https://medium.com/norigintech/smart-tv-navigation-with-react-86bd5f3037b7]
+- (BBC T.A.L)[https://bbc.github.io/tal/widgets/focus-management.html]
+- (React Spatial Navigation, por NoriginMedia)[https://github.com/NoriginMedia/react-spatial-navigation]
+- (React TV, por raphamorim)[https://github.com/raphamorim/react-tv]
+- (Pass the Remote: User Input on TV Devices)[https://netflixtechblog.com/pass-the-remote-user-input-on-tv-devices-923f6920c9a8]
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Todos os elementos listados foram utilizados **apenas para consulta**, permitindo assim elaborar um modelo mais robusto de gerenciamento de **foco**.  
+Além disso, utilizei informações da famosa (JSON Movie List, de mikeleguedes)[https://github.com/mikeleguedes/json-movie-list] para a criação de um banco de dados fake (pois outros serviços de API necessitavam de mais informações do que o necessário para um teste).
 
-### `yarn test`
+## Sobre o projeto
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+O projeto foi criado utilizando o (Create React App)[https://github.com/facebook/create-react-app] baseando-se no template em Typescript.
+Além disso, a aplicação também possui algumas outras bibliotecas, onde as principais são:
 
-### `yarn build`
+- eslint: garante a qualidade de código.
+- @material-ui/core: biblioteca core do (Material UI)[https://material-ui.com/pt/] (utilizada **EXCLUSIVAMENTE** para inserir os ícones no sistema).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Importante citar, também, que todos os arquivos são compatíveis com Typescript.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Rodando o projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para rodar o projeto, abra um terminal, entre na pasta do projeto e utilize o comando `yarn start`.
