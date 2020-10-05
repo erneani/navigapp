@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Menu, Keyboard, Rail } from "./components/Containers";
 
 function App() {
+  // Initial focus is on the menu component
+  // Focus will never be null
+  const [focusedContainer, setFocusedContainer] = useState("menu");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Menu
+        isContainerFocused={focusedContainer === "menu"}
+        changeSection={setFocusedContainer}
+      />
+      <Keyboard
+        isContainerFocused={focusedContainer === "keyboard"}
+        changeSection={setFocusedContainer}
+        setSearchKeyword={setSearchKeyword}
+      />
+      <Rail
+        isContainerFocused={focusedContainer === "rail"}
+        changeSection={setFocusedContainer}
+        searchKeyword={searchKeyword}
+      />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+`;
 
 export default App;
