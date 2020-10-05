@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 import { KeyboardWrapper, KeyRow } from "components/Structure/Keyboard";
 import { keyboardState } from "state/KeyboardState";
 import { Container, SearchBar } from "./style";
-import { railState } from "state";
 
 const keyboardData = [
   ["a", "b", "c", "d", "e", "f"],
@@ -52,7 +51,7 @@ const Keyboard = observer(
               if (keyboardState.getSelectedKeyword().length > 0) {
                 changeSection("rail");
               }
-            } else {
+            } else if (!(keyboardState.getFocusedComponent() + 1 === 74)) {
               setFocusedComponent(keyboardState.getFocusedComponent() + 1);
               keyboardState.setFocusedComponent(
                 keyboardState.getFocusedComponent() + 1
@@ -60,7 +59,10 @@ const Keyboard = observer(
             }
             break;
           case 40:
-            if (!String(keyboardState.getFocusedComponent()).startsWith("7")) {
+            if (
+              !String(keyboardState.getFocusedComponent()).startsWith("7") &&
+              !(keyboardState.getFocusedComponent() + 10 > 73)
+            ) {
               setFocusedComponent(keyboardState.getFocusedComponent() + 10);
               keyboardState.setFocusedComponent(
                 keyboardState.getFocusedComponent() + 10
