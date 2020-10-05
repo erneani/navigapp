@@ -1,0 +1,1 @@
+export { moviesList } from "./fakeDB";
