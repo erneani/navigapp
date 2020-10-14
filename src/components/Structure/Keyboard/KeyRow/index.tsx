@@ -4,10 +4,11 @@ import { IKeyboardRow } from "./types";
 import { Container } from "./style";
 
 const KeyRow = ({
-  keys,
-  rowIndex,
+  keys = [],
+  rowIndex = 0,
   focusedComponent,
-  handleFocus,
+  handleFocus = () => {},
+  children,
 }: IKeyboardRow) => {
   const parseKeyboardIndex = (rowValue: number, columnValue: number) => {
     // Return the row + column value as a decimal value:
@@ -30,6 +31,7 @@ const KeyRow = ({
           key={index}
         />
       ))}
+      {children ?? null}
     </Container>
   );
 };

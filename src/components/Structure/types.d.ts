@@ -1,5 +1,5 @@
 export interface IFocusable {
-  focused: boolean;
+  focused: boolean | number;
 }
 
 export interface IIndexable {

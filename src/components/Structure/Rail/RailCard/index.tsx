@@ -9,6 +9,7 @@ const RailCard = ({
   photo,
   value,
   handleFocus,
+  video = false,
 }: IRailCard) => {
   useEffect(() => {
     if (focused) {
@@ -18,7 +19,7 @@ const RailCard = ({
 
   return (
     <Wrapper focused={focused}>
-      <Container focused={focused} keyIndex={keyIndex}>
+      <Container focused={focused} video={video} keyIndex={keyIndex}>
         {title}
       </Container>
     </Wrapper>

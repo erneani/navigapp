@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { KeyboardWrapper, KeyRow } from "components/Structure/Keyboard";
 import { keyboardState } from "state/KeyboardState";
 import { Container, SearchBar } from "./style";
+import { BigKey } from "components/Structure/Keyboard/BigKey";
 
 const keyboardData = [
   ["a", "b", "c", "d", "e", "f"],
@@ -11,8 +12,25 @@ const keyboardData = [
   ["s", "t", "u", "v", "w", "x"],
   ["y", "z", "0", "1", "2", "3"],
   ["4", "5", "6", "7", "8", "9"],
-  ["espaço", "apagar", "limpar"],
 ];
+
+const keyboardSpecialData = [
+  {
+    value: "espaço",
+    focusKeys: [71, 72],
+  },
+  {
+    value: "apagar",
+    focusKeys: [73, 74],
+  },
+  {
+    value: "limpar",
+    focusKeys: [75, 76],
+  },
+];
+
+const keyboardSpecialDataRowIndex = keyboardData.length + 1;
+const keyboardSpecialOffset = keyboardSpecialDataRowIndex * 10;
 
 const Keyboard = observer(
   ({ isContainerFocused, changeSection, setSearchKeyword }: IContainer) => {
@@ -32,10 +50,17 @@ const Keyboard = observer(
             if (String(keyboardState.getFocusedComponent()).endsWith("1")) {
               changeSection("menu");
             } else {
-              setFocusedComponent(keyboardState.getFocusedComponent() - 1);
-              keyboardState.setFocusedComponent(
-                keyboardState.getFocusedComponent() - 1
-              );
+              if (keyboardState.getFocusedValue().length > 1) {
+                setFocusedComponent(keyboardState.getFocusedComponent() - 2);
+                keyboardState.setFocusedComponent(
+                  keyboardState.getFocusedComponent() - 2
+                );
+              } else {
+                setFocusedComponent(keyboardState.getFocusedComponent() - 1);
+                keyboardState.setFocusedComponent(
+                  keyboardState.getFocusedComponent() - 1
+                );
+              }
             }
             break;
           case 38:
@@ -51,18 +76,22 @@ const Keyboard = observer(
               if (keyboardState.getSelectedKeyword().length > 0) {
                 changeSection("rail");
               }
-            } else if (!(keyboardState.getFocusedComponent() + 1 === 74)) {
-              setFocusedComponent(keyboardState.getFocusedComponent() + 1);
-              keyboardState.setFocusedComponent(
-                keyboardState.getFocusedComponent() + 1
-              );
+            } else {
+              if (keyboardState.getFocusedValue().length > 1) {
+                setFocusedComponent(keyboardState.getFocusedComponent() + 2);
+                keyboardState.setFocusedComponent(
+                  keyboardState.getFocusedComponent() + 2
+                );
+              } else {
+                setFocusedComponent(keyboardState.getFocusedComponent() + 1);
+                keyboardState.setFocusedComponent(
+                  keyboardState.getFocusedComponent() + 1
+                );
+              }
             }
             break;
           case 40:
-            if (
-              !String(keyboardState.getFocusedComponent()).startsWith("7") &&
-              !(keyboardState.getFocusedComponent() + 10 > 73)
-            ) {
+            if (!String(keyboardState.getFocusedComponent()).startsWith("7")) {
               setFocusedComponent(keyboardState.getFocusedComponent() + 10);
               keyboardState.setFocusedComponent(
                 keyboardState.getFocusedComponent() + 10
@@ -94,10 +123,10 @@ const Keyboard = observer(
 
     useEffect(() => {
       if (isContainerFocused) {
-        window.addEventListener("keyup", handleKeyDown);
+        window.addEventListener("keydown", handleKeyDown);
         setFocusedComponent(keyboardState.getFocusedComponent());
       } else {
-        window.removeEventListener("keyup", handleKeyDown);
+        window.removeEventListener("keydown", handleKeyDown);
         setFocusedComponent(null);
       }
     }, [handleKeyDown, isContainerFocused]);
@@ -117,6 +146,18 @@ const Keyboard = observer(
               rowIndex={index}
             />
           ))}
+          <KeyRow>
+            {keyboardSpecialData.map((key, index) => (
+              <BigKey
+                key={index}
+                handleFocus={handleFocus}
+                focused={focusedComponent ?? 0}
+                value={key.value}
+                focusKeysList={key.focusKeys}
+                keyIndex={keyboardSpecialOffset + index}
+              />
+            ))}
+          </KeyRow>
         </KeyboardWrapper>
       </Container>
     );

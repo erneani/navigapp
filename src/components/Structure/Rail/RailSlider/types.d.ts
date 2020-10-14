@@ -1,6 +1,7 @@
 import { IComposable } from "components/Structure/Keyboard/KeyboardWrapper/types";
+import { ICanBeVideo } from "../RailCard/types";
 
-export interface ISlider {
+export interface ISlider extends ICanBeVideo {
   translation: number;
 }
 

@@ -41,7 +41,7 @@ const Rail = observer(
           case 39:
             if (
               railState.getFocusedCard() <
-              filterMovies(railState.getFilter(), moviesList).length
+              filterMovies(filter, moviesList).length
             ) {
               setFocusedCard(railState.getFocusedCard() + 1);
               railState.setFocusedCard(railState.getFocusedCard() + 1);
@@ -52,7 +52,7 @@ const Rail = observer(
             setSelectedRailItem(railState.getFocusedValue());
         }
       },
-      [changeSection]
+      [changeSection, filter]
     );
 
     useEffect(() => {
@@ -70,33 +70,63 @@ const Rail = observer(
     return (
       <Container>
         {searchKeyword!.length > 0 ? (
-          <Content>
-            <Title>Títulos</Title>
-            <ItemsContainer>
-              <RailSlider translation={Number(focusedCard) - 1 ?? 0}>
-                {filterMovies(filter, moviesList).length > 0 ? (
-                  filterMovies(
-                    filter,
-                    moviesList
-                  ).map((movie: any, index: number) => (
-                    <RailCard
-                      focused={focusedCard === index + 1}
-                      handleFocus={handleFocus}
-                      value={movie.name}
-                      photo={movie.name}
-                      keyIndex={index + 1}
-                      title={movie.name}
-                      key={index}
-                    />
-                  ))
-                ) : (
-                  <DefaultText>
-                    Não existe nenhum resultado para a sua busca
-                  </DefaultText>
-                )}
-              </RailSlider>
-            </ItemsContainer>
-          </Content>
+          <>
+            <Content>
+              <Title>Títulos</Title>
+              <ItemsContainer>
+                <RailSlider translation={Number(focusedCard) - 1 ?? 0}>
+                  {filterMovies(filter, moviesList).length > 0 ? (
+                    filterMovies(
+                      filter,
+                      moviesList
+                    ).map((movie: any, index: number) => (
+                      <RailCard
+                        focused={focusedCard === index + 1}
+                        handleFocus={handleFocus}
+                        value={movie.name}
+                        photo={movie.name}
+                        keyIndex={index + 1}
+                        title={movie.name}
+                        key={index}
+                      />
+                    ))
+                  ) : (
+                    <DefaultText>
+                      Não existe nenhum resultado para a sua busca
+                    </DefaultText>
+                  )}
+                </RailSlider>
+              </ItemsContainer>
+            </Content>
+            <Content>
+              <Title>Vídeos</Title>
+              <ItemsContainer>
+                <RailSlider video translation={Number(focusedCard) - 1 ?? 0}>
+                  {filterMovies(filter, moviesList).length > 0 ? (
+                    filterMovies(
+                      filter,
+                      moviesList
+                    ).map((movie: any, index: number) => (
+                      <RailCard
+                        focused={focusedCard === index + 1}
+                        handleFocus={handleFocus}
+                        value={movie.name}
+                        photo={movie.name}
+                        keyIndex={index + 1}
+                        title={movie.name}
+                        key={index}
+                        video
+                      />
+                    ))
+                  ) : (
+                    <DefaultText>
+                      Não existe nenhum resultado para a sua busca
+                    </DefaultText>
+                  )}
+                </RailSlider>
+              </ItemsContainer>
+            </Content>
+          </>
         ) : (
           <DefaultText>Comece a digitar para visualizar sua busca</DefaultText>
         )}

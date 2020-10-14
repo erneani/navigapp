@@ -76,10 +76,10 @@ const Menu = observer(({ isContainerFocused, changeSection }: IContainer) => {
 
   useEffect(() => {
     if (isContainerFocused) {
-      window.addEventListener("keyup", handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
       setFocusedComponent(menuState.getFocusedComponent());
     } else {
-      window.removeEventListener("keyup", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
       setFocusedComponent(null);
     }
   }, [handleKeyDown, isContainerFocused]);
